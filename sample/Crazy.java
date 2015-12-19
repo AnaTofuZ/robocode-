@@ -4,14 +4,17 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://robocode.sourceforge.net/license/epl-v10.html
+ *所謂コピーライト
  */
 package sample;
 
+//Crazy.javaが収納されているpackage名
 
 import robocode.*;
 
 import java.awt.*;
 
+//Crazy.javaで使用するためにimportしてきたクラス
 
 /**
  * Crazy - a sample robot by Mathew Nelson.
