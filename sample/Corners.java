@@ -110,53 +110,67 @@ public class Corners extends Robot {
 			//stopWhenSeeRobotがtrueだった時。すなわちgoCorner()で回転が終了した際は
 			// stopメソッドを用いて動作を全て終了
 			stop();
-			// Call our custom firing method
+			// 以下に定義されているsmartFireメソッドを呼び出し，引数としてe,getDistanceを渡す
+			//getDistanceでは自機と相手の戦車との距離を計測する
 			smartFire(e.getDistance());
-			// Look for another robot.
-			// NOTE:  If you call scan() inside onScannedRobot, and it sees a robot,
-			// the game will interrupt the event handler and start it over
+			// scan()メソッドで他のロボットを確認
+			// NOTE: もし，scanを呼び出している際にrobotが見つかったならば
+			// 再びこのメソッド内の先頭に回帰する
 			scan();
-			// We won't get here if we saw another robot.
-			// Okay, we didn't see another robot... start moving or turning again.
+			// ここでrobotが検出されなければresumeメソッドを用いてrunメソッドに回帰する
 			resume();
-		} else {
+		} else { //stopWhenSeeRobotがfalseだった場合。すなわちgoCornerで回転し始める前はsmartFireのみ
 			smartFire(e.getDistance());
 		}
 	}
 
 	/**
-	 * smartFire:  Custom fire method that determines firepower based on distance.
+	 * smartFire: カスタムされたfireメソッド。firepowerと距離によって動きが決定される。
 	 *
-	 * @param robotDistance the distance to the robot to fire at
+	 * @param(パラメーター) robotDistance the distance to the robot to fire at
+	 * robotDistance には onScannedRobotで読み込んだgetDistanceの値が代入
 	 */
 	public void smartFire(double robotDistance) {
-		if (robotDistance > 200 || getEnergy() < 15) {
-			fire(1);
-		} else if (robotDistance > 50) {
-			fire(2);
+		if (robotDistance > 200 || getEnergy() < 15) {//robotとの距離が200pixel以上または，自機のエネルギーが15未満の場合
+			fire(1);   //威力1でfire
+		} else if (robotDistance > 50) { //距離が50pixel以上ならば
+			fire(2);	//威力2でfire
 		} else {
-			fire(3);
+			fire(3); //それ以外は威力3でfire
 		}
 	}
 
 	/**
-	 * onDeath:  We died.  Decide whether to try a different corner next game.
+	 * onDeathメソッドのオーバーライド:  全て撃沈した場合。次のゲームでは別コーナーからの開始を決定する。
 	 */
 	public void onDeath(DeathEvent e) {
-		// Well, others should never be 0, but better safe than sorry.
+		/**
+		 *敵機が0になることはない(勝利時に呼び出されるメソッドはonWinであるので)
+		 *しかしsampleのコメントによれば，転ばぬ先の杖として一応定義されている。
+		 *そのまま特に返り値を返さずreturnする
+		*/
 		if (others == 0) {
 			return;
 		}
 
-		// If 75% of the robots are still alive when we die, we'll switch corners.
+		/**
+		* (もし自機が死んだ際，敵機が75%以下ならば角を変更する)
+		* と書かれているが，実際の計算を見てみると死んだ敵機が75%以下の時という計算になっている(コメントミス？)
+		*/
 		if ((others - getOthers()) / (double) others < .75) {
+			/**
+			 *最初に保存しておいたothersから現在生存している機体数をgetOthersメソッドで取得
+			 *その差分をothesで割り，75%以下だったら
+			 */
 			corner += 90;
-			if (corner == 270) {
-				corner = -90;
+			//cornerの値に+90する。つまり時計回りに目標の角を変更する(robocodeでは画面の上方向が0度)
+			if (corner == 270) { //cornerの値が270だった場合
+				corner = -90; //逆にcornerの値を-90にする。(360度を越してしまう為)
 			}
-			out.println("I died and did poorly... switching corner to " + corner);
+			out.println("I died and did poorly... switching corner to " + corner); //そしてこのコメントとcornerの値をprint
 		} else {
 			out.println("I died but did well.  I will still use corner " + corner);
+			//死んだ敵機が75%以上の場合は，このコメントのみ出力し，cornerの場所は変更しない
 		}
 	}
 }
