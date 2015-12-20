@@ -57,26 +57,37 @@ public class Crazy extends AdvancedRobot {
 
 			//変数movingForwardをtrueにする
 
-			// Tell the game we will want to turn right 90
+			//setTurnRightメソッドに90を入れる。(数値は角度として渡される)
+			//setTurnRightメソッドは機体を右に回転させるメソッドである
+			//これもsetAheadメソッドと同様に実行動作が行われるまで待機される。		
+	
 			setTurnRight(90);
-			// At this point, we have indicated to the game that *when we do something*,
-			// we will want to move ahead and turn right.  That's what "set" means.
-			// It is important to realize we have not done anything yet!
-			// In order to actually move, we'll want to call a method that
-			// takes real time, such as waitFor.
-			// waitFor actually starts the action -- we start moving and turning.
-			// It will not return until we have finished turning.
+
 			waitFor(new TurnCompleteCondition(this));
-			// Note:  We are still moving ahead now, but the turn is complete.
-			// Now we'll turn the other way...
+
+			/**
+			  *waitForメソッドはexecutesメソッドの様に即座に実行されるメソッドであり
+			  *このメソッドを読み込んだ瞬間setAhead,setTurnRightが実行される
+			  *waitForメソッドは条件設定したTurnCompleteConditionクラスが完了した事を読み取るまで戻されない
+			  *TurnCompleteConditionは回転が完了したかどうかを判断するクラスなので
+			  *setTurnRight(90)が完了するまで保持される。
+		       	  */
+
 			setTurnLeft(180);
-			// ... and wait for the turn to finish ...
+
+			//setTurnLeftメソッドに数値180を渡す。動きはsetTurnRightメソッドの逆で左回転する
+
+	
 			waitFor(new TurnCompleteCondition(this));
-			// ... then the other way ...
+
+			//先ほどと同様にwaitForメソッドを読み込んだ瞬間に左回転が開始される
+
 			setTurnRight(180);
-			// .. and wait for that turn to finish.
+
+			//setTurnRightメソッドに180の数値を渡す
+
 			waitFor(new TurnCompleteCondition(this));
-			// then back to the top to do it all again
+			// 同様にwaitForメソッドで確認を取る。ここまでがループされる
 		}
 	}
 
