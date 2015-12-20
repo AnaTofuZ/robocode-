@@ -92,11 +92,13 @@ public class Crazy extends AdvancedRobot {
 	}
 
 	/**
-	 * onHitWall:  Handle collision with wall.
+	 * onHitWall: 壁と衝突した際に使用されるメソッド 
 	 */
-	public void onHitWall(HitWallEvent e) {
-		// Bounce off!
+	public void onHitWall(HitWallEvent e) { //イベント処理より壁に当たったことを受け取った場合
+		//跳ね返るような動きをする 
 		reverseDirection();
+			//下に定義されているreverseDirectionメソッドを呼び出す
+
 	}
 
 	/**
