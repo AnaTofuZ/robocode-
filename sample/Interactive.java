@@ -121,32 +121,32 @@ public class Interactive extends AdvancedRobot { //AdvancedRobotを継承したI
 		}
 	}
 
-	// Called when a key has been pressed
-	public void onKeyPressed(KeyEvent e) {
-		switch (e.getKeyCode()) {
-		case VK_UP:
-		case VK_W:
-			// Arrow up key: move direction = forward (infinitely)
-			moveDirection = 1;
-			moveAmount = Double.POSITIVE_INFINITY;
+	//キーボードから何かが入力されればこのメソッドが呼び出される 
+	public void onKeyPressed(KeyEvent e) { //keyPresssedのオーバーライド
+		switch (e.getKeyCode()) { //押されたキーによってスイッチ分岐
+		case VK_UP://上矢印
+		case VK_W: //wキー
+			//キーが入力され続ければ永続的に前進を行う 
+			moveDirection = 1; //変数moveDirctionに1を代入
+			moveAmount = Double.POSITIVE_INFINITY; //変数moveAmoutにdouble型のPSITIVE_INFINITYを収納
 			break;
 
-		case VK_DOWN:
-		case VK_S:
-			// Arrow down key: move direction = backward (infinitely)
-			moveDirection = -1;
-			moveAmount = Double.POSITIVE_INFINITY;
+		case VK_DOWN://下矢印
+		case VK_S://sキー
+			//キーが入力され続ければ永続的に後進を行う 
+			moveDirection = -1;//変数moveDirectionに-1を代入
+			moveAmount = Double.POSITIVE_INFINITY; //moveAmountにPOSITIVE_INFINITYを収納
 			break;
 
-		case VK_RIGHT:
-		case VK_D:
-			// Arrow right key: turn direction = right
+		case VK_RIGHT://右矢印
+		case VK_D://dキー
+			// 右方向に回転 
 			turnDirection = 1;
 			break;
 
 		case VK_LEFT:
 		case VK_A:
-			// Arrow left key: turn direction = left
+			// 左方向に回転 
 			turnDirection = -1;
 			break;
 		}
