@@ -102,7 +102,7 @@ public class Crazy extends AdvancedRobot {
 	}
 
 	/**
-	 * reverseDirection:  Switch from ahead to back & vice versa
+	 * reverseDirection: 何かに衝突した際に呼び出され，前進か交代をsetするメソッド
 	 */
 	public void reverseDirection() {
 		if (movingForward) {  //boolean型変数movingForwardがtrueだった場合(runメソッド内でtrueにされている)
@@ -118,19 +118,20 @@ public class Crazy extends AdvancedRobot {
 	}
 
 	/**
-	 * onScannedRobot:  Fire!
+	 * onScannedRobotメソッド:ロボットをscanした場合，砲撃する
 	 */
-	public void onScannedRobot(ScannedRobotEvent e) {
-		fire(1);
+	public void onScannedRobot(ScannedRobotEvent e) { //ScannnedRobotEventから値を受け取った時
+		fire(1);  //威力1で砲撃
 	}
 
 	/**
-	 * onHitRobot:  Back up!
+	 * onHitRobot:  戻る
 	 */
-	public void onHitRobot(HitRobotEvent e) {
-		// If we're moving the other robot, reverse!
-		if (e.isMyFault()) {
-			reverseDirection();
+	public void onHitRobot(HitRobotEvent e) { //敵機に衝突した場合
+
+
+		if (e.isMyFault()) { //自分から当たった場合
+			reverseDirection();  //reverseDirectionを呼び出す
 		}
 	}
 }
