@@ -1,0 +1,270 @@
+\documentclass[12pt]{jarticle} %記事や論文を書く際にjarticleを使用
+
+%枠付文章とpng画像を出力するため
+\usepackage{ascmac}%枠付き文字出力
+\usepackage{fancybox}
+\usepackage{framed}
+\usepackage[dvipdfmx]{graphicx}%pdf出力のための
+\usepackage{mediabb}
+
+%\usepackage{listings,jlisting}.cをpdfに出力
+\usepackage{listings, jlisting}
+\lstset{
+  language={java},%言語名前
+  basicstyle={\footnotesize\ttfamily},%ソースコードのフォント設定
+  identifierstyle={\small},
+  ndkeywordstyle={\small},
+  keywordstyle=\ttfamily,
+  stringstyle={\small\ttfamily},
+  frame={tb},
+  breaklines=true,%行が長くなった際の改行の有無
+  xrightmargin=0zw,%右の余白の大きさ
+  xleftmargin=3zw,%左の余白の大きさ
+  numbers=left,%行番号表示場所
+  stepnumber=1,%行番号の増分
+  numbersep=1zw,%行番号と本文の間隔
+  numberstyle=\ttfamily,
+  frame=tRBl,
+  framesep=5pt,
+  commentstyle={\ttfamily},%コメントアウトのフォント設定
+  flexiblecolumns = true,
+  classoffset=1,
+  showstringspaces=false,
+  tabsize=4
+}
+
+
+%本文領域を広め（空白箇所マージン領域を小さめ）に設定
+\setlength{\oddsidemargin}{0mm}%文字の左からの間隔
+\setlength{\topmargin}{-13mm}%用紙の上からの間隔
+\setlength{\headheight}{12pt}%ヘッダーの高さ
+\setlength{\headsep}{25pt}%ヘッダーとボディとの間隔
+\setlength{\textwidth}{160mm}%文字出力の横幅を設定
+\setlength{\textheight}{230mm}%文字出力の縦幅を設定
+\setlength{\marginparwidth}{20pt}%注釈用の余白
+\setlength{\footskip}{25pt}%フッターとボディとの間隔
+\setlength{\evensidemargin}{-1cm}
+\thispagestyle{empty}
+
+\begin{document}
+
+\begin{titlepage}
+    \begin{center} %vspaceは縦方向のスペースで，hspaceは横方向のスペース
+        \fontsize{25pt}{0pt}\selectfont %フォントサイズと行送りを設定
+        \vspace*{100truept}
+        \bf{ProgrammingII}\\ %タイトル1行目
+        \vspace*{10truept}
+        \bf{Report 1}\\ %タイトル2行目
+        \vspace{340truept}
+    \end{center}
+    \begin{flushright}
+        {\large
+            \fontsize{16pt}{0pt}\selectfont
+          所  属  :琉球大学 工学部 情報工学科\\
+            \vspace{5truept}
+          学籍番号:155730B\\
+            \vspace{5truept}
+          氏  名  :清水 隆博\\
+            \vspace{5truept}
+          提 出 日:2015年12月21日\\
+            \vspace{5truept}
+        }    
+    \end{flushright}
+\end{titlepage}
+
+\tableofcontents %目次を自動作成するコマンド
+\setcounter{page}{1} %ページ数を1とする
+\pagestyle{plain}
+%事前にjlisting.styをlistingにぶちこみ，sudo mktexlsr で更新を行う。
+
+\newpage
+
+\begin{flushleft}
+
+\section{ソースコードの解説}
+\subsection{Corners.java}
+\lstinputlisting{Corners.java}
+
+\newpage
+
+\subsection{Crazy.java}
+\subsubsection{ソースコード}
+\lstinputlisting{Crazy.java}
+
+\newpage
+
+\subsection{Fire.java}
+\subsubsection{ソースコード}
+\lstinputlisting{Fire.java}
+
+\newpage
+
+\subsection{Interactive.java}
+\subsubsection{ソースコード}
+\lstinputlisting{Interactive.java}
+\subsubsection{考察}
+\subsubsection{メリット}
+\begin{enumerate}
+\item hoge
+\end{enumerate}
+\subsubsection{デメリット}
+\begin{enumerate}
+\item hoge
+\end{enumerate}
+
+\subsection{Interactive\_v2.java}
+\subsubsection{ソースコード}
+\lstinputlisting{Interactive_v2.java}
+\subsubsection{考察}
+\subsubsection{メリット}
+\begin{enumerate}
+\item hoge
+\end{enumerate}
+\subsubsection{デメリット}
+\begin{enumerate}
+\item hoge
+\end{enumerate}
+
+\subsection{MyFirstJuniorRobot.java}
+\subsubsection{ソースコード}
+\lstinputlisting{MyFirstJuniorRobot.java}
+\subsubsection{考察}
+\subsubsection{メリット}
+\begin{enumerate}
+\item hoge
+\end{enumerate}
+\subsubsection{デメリット}
+\begin{enumerate}
+\item hoge
+\end{enumerate}
+
+\subsection{PaintingRobot.java}
+\subsubsection{ソースコード}
+\lstinputlisting{PaintingRobot.java}
+\subsubsection{考察}
+\subsubsection{メリット}
+\begin{enumerate}
+\item hoge
+\end{enumerate}
+\subsubsection{デメリット}
+\begin{enumerate}
+\item hoge
+\end{enumerate}
+
+\subsection{RamFire.java}
+\subsubsection{ソースコード}
+\lstinputlisting{RamFire.java}
+\subsubsection{考察}
+\subsubsection{メリット}
+\begin{enumerate}
+\item hoge
+\end{enumerate}
+\subsubsection{デメリット}
+\begin{enumerate}
+\item hoge
+\end{enumerate}
+
+\subsection{SittingDuck.java}
+\subsubsection{ソースコード}
+\lstinputlisting{SittingDuck.java}
+\subsubsection{考察}
+\subsubsection{メリット}
+\begin{enumerate}
+\item hoge
+\end{enumerate}
+\subsubsection{デメリット}
+\begin{enumerate}
+\item hoge
+\end{enumerate}
+
+\subsection{SpinBot.java}
+\subsubsection{ソースコード}
+\lstinputlisting{SpinBot.java}
+\subsubsection{考察}
+\subsubsection{メリット}
+\begin{enumerate}
+\item hoge
+\end{enumerate}
+\subsubsection{デメリット}
+\begin{enumerate}
+\item hoge
+\end{enumerate}
+
+\subsection{Target.java}
+\subsubsection{ソースコード}
+\lstinputlisting{Target.java}
+\subsubsection{考察}
+\subsubsection{メリット}
+\begin{enumerate}
+\item hoge
+\end{enumerate}
+\subsubsection{デメリット}
+\begin{enumerate}
+\item hoge
+\end{enumerate}
+
+\subsection{TrackFire.java}
+\subsubsection{ソースコード}
+\lstinputlisting{TrackFire.java}
+\subsubsection{考察}
+\subsubsection{メリット}
+\begin{enumerate}
+\item hoge
+\end{enumerate}
+\subsubsection{デメリット}
+\begin{enumerate}
+\item hoge
+\end{enumerate}
+
+\subsection{Tracker.java}
+\subsubsection{ソースコード}
+\lstinputlisting{Tracker.java}
+\subsubsection{考察}
+\subsubsection{メリット}
+\begin{enumerate}
+\item hoge
+\end{enumerate}
+\subsubsection{デメリット}
+\begin{enumerate}
+\item hoge
+\end{enumerate}
+
+\subsection{VelociRobot.java}
+\subsubsection{ソースコード}
+\lstinputlisting{VelociRobot.java}
+\subsubsection{考察}
+\subsubsection{メリット}
+\begin{enumerate}
+\item hoge
+\end{enumerate}
+\subsubsection{デメリット}
+\begin{enumerate}
+\item hoge
+\end{enumerate}
+
+\subsection{Walls.java}
+\subsubsection{ソースコード}
+\lstinputlisting{Walls.java}
+\subsubsection{考察}
+\subsubsection{メリット}
+\begin{enumerate}
+\item hoge
+\end{enumerate}
+\subsubsection{デメリット}
+\begin{enumerate}
+\item hoge
+\end{enumerate}
+
+\section{あとがき}
+\ \ \ うぇい
+\end{flushleft}
+%番号付き箇条書き
+%\begin{enumerate}
+%\item 1つめ
+
+
+\begin{thebibliography}{9} 
+	\bibitem{}Java言語プログラミングレッスン
+	\bibitem{}javaの教科書
+\end{thebibliography}
+\end{document}

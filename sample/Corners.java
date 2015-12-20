@@ -81,8 +81,9 @@ public class Corners extends Robot {
 		turnRight(normalRelativeAngleDegrees(corner - getHeading()));
 
 		/*RobotクラスのturnRightメソッド(機体を右回転する)を使用
-		 * turnRIghtに渡す値を正規化するためにnormalRelativeAngleDegreesメソッドを通して
-		 *現在機体が向いている座標をgetHeadingメソッド取得し
+		 * turnRIghtに渡す値を正規化するために
+		 * normalRelativeAngleDegreesメソッドを通して
+		 * 現在機体が向いている座標をgetHeadingメソッド取得し
 		 *cornerからこれを引いた分の角度回転する
 		 *turnRightメソッドは処理が終了するまで戻らないので回転中は自機は何もしない*/
 
@@ -91,7 +92,9 @@ public class Corners extends Robot {
 		stopWhenSeeRobot = true;
 
 		//5000pixel分直進する。先ほど回転したので壁に当たる.
-		//Robot内のaheadメソッドは壁に衝突すると動作を完了するので，衝突後turnLeftの動きに移行する
+		//Robot内のaheadメソッドは壁に衝突すると動作を完了するので
+		//衝突後turnLeftの動きに移行する
+		
 		ahead(5000);
 		// 角に正面を向く
 		turnLeft(90);
@@ -117,9 +120,11 @@ public class Corners extends Robot {
 			// NOTE: もし，scanを呼び出している際にrobotが見つかったならば
 			// 再びこのメソッド内の先頭に回帰する
 			scan();
-			// ここでrobotが検出されなければresumeメソッドを用いてrunメソッドに回帰する
+			// ここでrobotが検出されなければ
+			//resumeメソッドを用いてrunメソッドに回帰する
 			resume();
-		} else { //stopWhenSeeRobotがfalseだった場合。すなわちgoCornerで回転し始める前はsmartFireのみ
+		} else { //stopWhenSeeRobotがfalseだった場合。
+			//すなわちgoCornerで回転し始める前はsmartFireのみ
 			smartFire(e.getDistance());
 		}
 	}
@@ -147,7 +152,8 @@ public class Corners extends Robot {
 		/**
 		 *敵機が0になることはない(勝利時に呼び出されるメソッドはonWinであるので)
 		 *しかしsampleのコメントによれば，転ばぬ先の杖として一応定義されている。
-		 *そのまま特に返り値を返さずreturnする
+		 *そのまま特に返り値を返さず
+	         *returnする
 		*/
 		if (others == 0) {
 			return;
@@ -167,7 +173,9 @@ public class Corners extends Robot {
 			if (corner == 270) { //cornerの値が270だった場合
 				corner = -90; //逆にcornerの値を-90にする。(360度を越してしまう為)
 			}
-			out.println("I died and did poorly... switching corner to " + corner); //そしてこのコメントとcornerの値をprint
+			out.println("I died and did poorly... switching corner to " + corner);
+
+			 //そしてこのコメントとcornerの値をprint
 		} else {
 			out.println("I died but did well.  I will still use corner " + corner);
 			//死んだ敵機が75%以上の場合は，このコメントのみ出力し，cornerの場所は変更しない

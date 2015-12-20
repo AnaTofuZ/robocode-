@@ -4,9 +4,11 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://robocode.sourceforge.net/license/epl-v10.html
+ * 所謂コピーライト
  */
 package sample;
 
+//SittingDuckが収録されているpackage名
 
 import robocode.AdvancedRobot;
 import robocode.RobocodeFileOutputStream;
@@ -17,57 +19,65 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintStream;
 
+//構成するために必要なメソッドが含まれているクラスをimportする
 
 /**
  * SittingDuck - a sample robot by Mathew Nelson.
  * <p/>
- * Along with sitting still doing nothing, this robot demonstrates persistency.
+ * とくに何もしないで静止している。このロボットは粘り強さを示したデモンストレーション機である。
  *
  * @author Mathew A. Nelson (original)
  * @author Flemming N. Larsen (contributor)
  * @author Andrew Magargle (contributor)
  */
-public class SittingDuck extends AdvancedRobot {
-	static boolean incrementedBattles = false;
+
+public class SittingDuck extends AdvancedRobot {	//AdvancedRobotを継承
+	static boolean incrementedBattles = false;	//staticなboolean型変数incrementedBattlesを宣言し，falseを代入
 
 	public void run() {
+		
 		setBodyColor(Color.yellow);
 		setGunColor(Color.yellow);
+				//機体の色設定。機体と砲身が黄色
 
 		int roundCount, battleCount;
 
-		try {
-			BufferedReader reader = null;
+			//int型変数，roundCount，battleCountをそれぞれ宣言
+
+		try { //try処理開始。例外処理が発生したらcatchされる 
+			BufferedReader reader = null;	//BufferedReader readerにnullを入れる(例外処理)
 			try {
-				// Read file "count.dat" which contains 2 lines, a round count, and a battle count
+				//  "count.dat"count.datファイル(ラウンドcountとバトルcountを含む)
+				//を読み出すことを試行 
+			
 				reader = new BufferedReader(new FileReader(getDataFile("count.dat")));
 
-				// Try to get the counts
+				// countの値を受け取ることを試みる
 				roundCount = Integer.parseInt(reader.readLine());
 				battleCount = Integer.parseInt(reader.readLine());
 
-			} finally {
+			} finally { //finally内部はいつでも処理される
 				if (reader != null) {
-					reader.close();
+					reader.close();	 //もしreaderがnullでないなら，reader.close()メソッドを呼び出す
 				}
 			}
 		} catch (IOException e) {
-			// Something went wrong reading the file, reset to 0.
+			//ファイルの読み込みができなかった場合,両者のcountを0にする 
 			roundCount = 0;
 			battleCount = 0;
 		} catch (NumberFormatException e) {
-			// Something went wrong converting to ints, reset to 0
+			// 同じくファイルの読み込みができなかった場合，両者のcountを0にする
 			roundCount = 0;
 			battleCount = 0;
 		}
 
-		// Increment the # of rounds
+		// ラウンド終了時にインクリメント
 		roundCount++;
 
-		// If we haven't incremented # of battles already,
-		// Note: Because robots are only instantiated once per battle, member variables remain valid throughout it.
-		if (!incrementedBattles) {
-			// Increment # of battles
+		//もし先ほどインクリメントするのを忘れていたら 
+		//メンバ変数は別に今までどおり有効となっている	
+		if (!incrementedBattles) { 
+			// バトルに付き#の値をインクリメント
 			battleCount++;
 			incrementedBattles = true;
 		}
@@ -79,7 +89,7 @@ public class SittingDuck extends AdvancedRobot {
 			w.println(roundCount);
 			w.println(battleCount);
 
-			// PrintStreams don't throw IOExceptions during prints, they simply set a flag.... so check it here.
+			// PrintStreamsはエラー処理を出さない。フラグ設定のみ行うので詳しくはここ参照 
 			if (w.checkError()) {
 				out.println("I could not write the count!");
 			}

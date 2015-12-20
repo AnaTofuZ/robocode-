@@ -67,7 +67,8 @@ public class PaintingRobot extends Robot { //Robotclassから継承
  		  /**
                     *setDebugPropertyはStringを2つ受け取る        
                     *2つめのstringにはe.getNameメソッドでscanしたロボット名
-                    *getPowerで被弾した弾丸のパワーを，getTimeでゲーム時間をそれぞれ文字列として渡す
+                    *getPowerで被弾した弾丸のパワーを
+		    *getTimeでゲーム時間をそれぞれ文字列として渡す
                     */
 
 

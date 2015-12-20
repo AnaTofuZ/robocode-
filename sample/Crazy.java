@@ -68,14 +68,17 @@ public class Crazy extends AdvancedRobot {
 			/**
 			  *waitForメソッドはexecutesメソッドの様に即座に実行されるメソッドであり
 			  *このメソッドを読み込んだ瞬間setAhead,setTurnRightが実行される
-			  *waitForメソッドは条件設定したTurnCompleteConditionクラスが完了した事を読み取るまで戻されない
+			  *waitForメソッドは条件設定したTurnCompleteConditionクラスが
+			  *完了した事を読み取るまで戻されない
+			  *
 			  *TurnCompleteConditionは回転が完了したかどうかを判断するクラスなので
 			  *setTurnRight(90)が完了するまで保持される。
 		       	  */
 
 			setTurnLeft(180);
 
-			//setTurnLeftメソッドに数値180を渡す。動きはsetTurnRightメソッドの逆で左回転する
+			//setTurnLeftメソッドに数値180を渡す。
+			//動きはsetTurnRightメソッドの逆で左回転する
 
 	
 			waitFor(new TurnCompleteCondition(this));
