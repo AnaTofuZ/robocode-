@@ -19,30 +19,44 @@ import java.awt.*;
 /**
  * Crazy - a sample robot by Mathew Nelson.
  * <p/>
- * This robot moves around in a crazy pattern.
+ * このロボットはクレイジーなパターンであちらこちらに動く
  *
  * @author Mathew A. Nelson (original)
  * @author Flemming N. Larsen (contributor)
+ * crazy の作者についてのcomment
  */
+
 public class Crazy extends AdvancedRobot {
-	boolean movingForward;
+ //AdcancedRobotを継承しCrazyクラスとして実装
+
+	boolean movingForward; //boolean型変数movindForwardを宣言
 
 	/**
-	 * run: Crazy's main run function
+	 * runメソッド : Crazyのメインとなるrunメソッド(関数)
 	 */
+
 	public void run() {
-		// Set colors
+		// 機体の色の設定 
 		setBodyColor(new Color(0, 200, 0));
 		setGunColor(new Color(0, 150, 50));
 		setRadarColor(new Color(0, 100, 100));
 		setBulletColor(new Color(255, 255, 100));
 		setScanColor(new Color(255, 200, 200));
 
-		// Loop forever
+		//無限ループ 
 		while (true) {
-			// Tell the game we will want to move ahead 40000 -- some large number
-			setAhead(40000);
+			// ゲーム中40000pixel移動する.(sampleプログラムなので長い数字なら何でも良い)
+			setAhead(40000); 
+			/**
+			  *AdvancedRobotクラスのメソッドsetAheadに4000pixelを渡している
+			  *set系のメソッドは宣言してもすぐには実行されずキャッシュに保存される
+			  *このメソッドが実際に動くのはexecute()メソッドを呼び出すか，実行動作を行う時である。
+			  */
+
 			movingForward = true;
+
+			//変数movingForwardをtrueにする
+
 			// Tell the game we will want to turn right 90
 			setTurnRight(90);
 			// At this point, we have indicated to the game that *when we do something*,
