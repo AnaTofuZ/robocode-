@@ -91,12 +91,19 @@ public class Fire extends Robot {
 	}
 
 	/**
-	 * onHitRobot:  Aim at it.  Fire Hard!
+	 * onHitRobot: 敵機に衝突した場合，砲撃して逃走 
 	 */
-	public void onHitRobot(HitRobotEvent e) {
+	public void onHitRobot(HitRobotEvent e) { //onHitRobotのオーバーライド
 		double turnGunAmt = normalRelativeAngleDegrees(e.getBearing() + getHeading() - getGunHeading());
+		
+	/**
+	 * HitRobotEventのメソッドgetBearingを用いて衝突したロボットとの相対角度を取得
+	 * その角度と自機が向いている角度を足し合わせる 
+	 *つまり，敵機の角度を算出し，そこから現在自機の主砲が向いている角度を引く。
+	 *そこで出た角度をturnGunAmtに保存
+	 */
 
-		turnGunRight(turnGunAmt);
-		fire(3);
+		turnGunRight(turnGunAmt); //先のturnGunAmtの分のみ主砲を右回転
+		fire(3);//威力3で砲撃
 	}
 }
