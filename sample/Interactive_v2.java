@@ -21,29 +21,31 @@ import java.awt.event.MouseWheelEvent;
 import java.util.HashSet;
 import java.util.Set;
 
+//Interactive_v2上で使用するメソッドの為に必要なクラスをimportする
 
 /**
  * Interactive_v2 - a modified version of the sample robot Interactive by Flemming N. Larsen
  *                  to use absolute movements (up, right, down, left) by Tuan Anh Nguyen.
  * <p/>
- * This is a robot that is controlled using the arrow keys (or WASD) and mouse only.
+ * このロボットはマウスとKeyboardのみでコントロールを行う
  * <p/>
- * Keys:
- * - W or arrow up:    Move up
- * - S or arrow down:  Move down
- * - A or arrow right: Move right
- * - D or arrow left:  Move left
- * Mouse:
- * - Moving:      Moves the aim, which the gun will follow
- * - Button 1:    Fire a bullet with power = 1
- * - Button 2:    Fire a bullet with power = 2
- * - Button 3:    Fire a bullet with power = 3
+ * キーボード入力:
+ * - W 又は 上矢印:   前進する
+ * - S 又は 下矢印:   後進する
+ * - A 又は 右矢印:   右回転
+ * - D 又は 左矢印:   左回転
+ * マウス入力:
+ * - 移動:     動きを追って，銃が移動
+ * - 上にホイール:    前進
+ * - 下ホイール:      後進
+ * - ボタン 1:    砲撃をこの大きさで行う = 1
+ * - ボタン 2:    砲撃をこの大きさで行う = 2
+ * - ボタン 3:    砲撃をこの大きさで行う = 3
  * <p/>
- * The bullet color depends on the fire power:
- * - Power = 1:   Yellow
- * - Power = 2:   Orange
- * - Power = 3:   Red
- * <p/>
+ * 砲撃の威力に応じて弾丸の色を変更:
+ * - Power = 1:   黄色
+ * - Power = 2:   オレンジ
+ * - Power = 3:   赤
  * Note that the robot will continue firing as long as the mouse button is
  * pressed down.
  * <p/>
@@ -60,13 +62,13 @@ import java.util.Set;
  */
 public class Interactive_v2 extends AdvancedRobot {
 
-	// The coordinate of the aim (x,y)
+	//エイムの(x,y)座標を宣言 
 	int aimX, aimY;
 
-	// Fire power, where 0 = don't fire
+	//fireパワーを宣言。firePower=0は撃たないことを意味する。 
 	int firePower;
 
-	// Absolute directions on the screen
+	//スクリーン上での方向を列挙型enumでDirectionの中に宣言 
 	private enum Direction {
 		UP,
 		DOWN,
@@ -74,39 +76,45 @@ public class Interactive_v2 extends AdvancedRobot {
 		RIGHT
 	}
 
-	// Current move directions
+	//現在の移動方向
+	//final修飾子を使った為，以下set<Direction> directionは変更することが出来ない
 	private final Set<Direction> directions = new HashSet<Direction>();
 
-	// Called when the robot must run
+	//robocode上でのメインメソッドの様なrunメソッド 
 	public void run() {
 
-		// Sets the colors of the robot
-		// body = black, gun = white, radar = red
+		//色の設定 
+		//機体:黒,銃身:白,レーザー:赤色
 		setColors(Color.BLACK, Color.WHITE, Color.RED);
 
-		// Loop forever
+		//永遠ループ 
 		for (;;) {
-			// Move the robot compared to the distance to move
+			//機体が動こうとするときdistanceToMoveと距離は同じとみなす
+			//setAheadメソッドを用いてdistanceToMoveの値の分前進をさせる待機命令
+ 
 			setAhead(distanceToMove());
 
-			// Turn the body to it points in the correct direction
+			//ボディーを回転させることによって正しい方向を示させる 
 			setTurnRight(angleToTurnInDegrees());
 
-			// Turns the gun toward the current aim coordinate (x,y) controlled by
-			// the current mouse coordinate
+			// 銃身とエイムの(x,y)座標をマウスポインタによって決定させる 
+
 			double angle = normalAbsoluteAngle(Math.atan2(aimX - getX(), aimY - getY()));
+			//double型変数angleにaimX,Yから現在のロボットのx,y座標を引いた絶対角度を渡す
 
 			setTurnGunRightRadians(normalRelativeAngle(angle - getGunHeadingRadians()));
+			
+			//ラジアン角度でangleから現在主砲が向いている角度を引いた分だけ主砲を右回転
 
-			// Fire the gun with the specified fire power, unless the fire power = 0
+			//砲撃は下記で設定した特殊な砲撃を行う。尚0は撃たないことを意味する 
 			if (firePower > 0) {
 				setFire(firePower);
 			}
 
-			// Execute all pending set-statements
+			//execute()メソッドを用いて全ての待機された命令を開始する 
 			execute();
 
-			// Next turn is processed in this loop..
+			// 次のループを再開させる 
 		}
 	}
 
@@ -222,7 +230,7 @@ public class Interactive_v2 extends AdvancedRobot {
 		if (directions.isEmpty()) {
 			return 0;
 		}
-		// If the robot has more than 45 degrees to turn, move only 5 pixel 
+		// If the robot has more than 45 degrees to turn, move only 5 pixel
 		if (Math.abs(angleToTurnInDegrees()) > 45) {
 			return 5;
 		}
