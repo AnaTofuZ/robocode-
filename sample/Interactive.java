@@ -152,78 +152,81 @@ public class Interactive extends AdvancedRobot { //AdvancedRobotを継承したI
 		}
 	}
 
-	// Called when a key has been released (after being pressed)
-	public void onKeyReleased(KeyEvent e) {
-		switch (e.getKeyCode()) {
+	//キーボードから手を話したらこのメソッドが呼び出される 
+	public void onKeyReleased(KeyEvent e) { //keyReleasedメソッドのオーバーライド
+		switch (e.getKeyCode()) { //e.getKeyCodeメソッド(押されていたキー)によって分岐 
 		case VK_UP:
 		case VK_W:
 		case VK_DOWN:
 		case VK_S:
-			// Arrow up and down keys: move direction = stand still
+			//上下矢印キー，W，Sキーの場合
+			//先ほどまで進んでいた方向を向いたま停止 
 			moveDirection = 0;
-			moveAmount = 0;
+			moveAmount = 0;  //moveDirection及びmovrAmountに0を代入してbreak
 			break;
 
 		case VK_RIGHT:
 		case VK_D:
 		case VK_LEFT:
 		case VK_A:
-			// Arrow right and left keys: turn direction = stop turning
+			//左右矢印キー，D,Aキーの場合
+			//回転を停止 
 			turnDirection = 0;
 			break;
 		}
 	}
 
-	// Called when the mouse wheel is rotated
-	public void onMouseWheelMoved(MouseWheelEvent e) {
-		// If the wheel rotation is negative it means that it is moved forward.
-		// Set move direction = forward, if wheel is moved forward.
-		// Otherwise, set move direction = backward
+	//マウスホイールが回転し始めたらこのメソッドが呼び出される 
+	public void onMouseWheelMoved(MouseWheelEvent e) { //MouseWheelEvetクラスからイベントを読みこむ
+		
+		//変数moveDirectionにマウスホイールを回転させたクリック数を返す
+		//この際マウスホイールが上側に回転した場合は負の値が返される。下側に回転した場合は正の値
+
 		moveDirection = (e.getWheelRotation() < 0) ? 1 : -1;
 
-		// Set the amount to move = absolute wheel rotation amount * 5 (speed)
-		// Here 5 means 5 pixels per wheel rotation step. The higher value, the
-		// more speed
+		//moAmountにgetWheelRotationの値に5をかけた値を渡す(ここで5は適当に決定された。大きいほど早く回転する)
+
 		moveAmount += Math.abs(e.getWheelRotation()) * 5;
 	}
 
-	// Called when the mouse has been moved
+	//マウスが移動した場合にこのメソッドが呼び出される
+ 
 	public void onMouseMoved(MouseEvent e) {
-		// Set the aim coordinate = the mouse pointer coordinate
+		// 目標の設定はマウスポインタの(x,y)座標と同期 
 		aimX = e.getX();
 		aimY = e.getY();
 	}
 
-	// Called when a mouse button has been pressed
-	public void onMousePressed(MouseEvent e) {
+	//マウスのボタンが押された際このメソッドが呼び出される 
+	public void onMousePressed(MouseEvent e) { 
 		if (e.getButton() == MouseEvent.BUTTON3) {
-			// Button 3: fire power = 3 energy points, bullet color = red
+			//ボタン3:威力3の砲撃:色は赤色
 			firePower = 3;
 			setBulletColor(Color.RED);
 		} else if (e.getButton() == MouseEvent.BUTTON2) {
-			// Button 2: fire power = 2 energy points, bullet color = orange
+			//ボタン2:威力2の砲撃:色はオレンジ 
 			firePower = 2;
 			setBulletColor(Color.ORANGE);
 		} else {
-			// Button 1 or unknown button:
-			// fire power = 1 energy points, bullet color = yellow
+			//ボタン1，もしくは定義されていないボタン 
+			//威力1の砲撃:色は黄色
 			firePower = 1;
 			setBulletColor(Color.YELLOW);
 		}
 	}
 
-	// Called when a mouse button has been released (after being pressed)
+	//マウスボタンから手が離れた場合呼び出されるメソッド 
 	public void onMouseReleased(MouseEvent e) {
-		// Fire power = 0, which means "don't fire"
+		// 0の威力で砲撃(撃たない) 
 		firePower = 0;
 	}
 
-	// Called in order to paint graphics for this robot.
-	// "Paint" button on the robot console window for this robot must be
-	// enabled in order to see the paintings.
+	//paintボタンを押すことでエイムを表示
+	//ペイントボタンはバトルフィールド上でクリックすることができる	
+
 	public void onPaint(Graphics2D g) {
-		// Draw a red cross hair with the center at the current aim
-		// coordinate (x,y)
+		//現在のエイム範囲を赤色のサークルで表示する 
+	
 		g.setColor(Color.RED);
 		g.drawOval(aimX - 15, aimY - 15, 30, 30);
 		g.drawLine(aimX, aimY - 4, aimX, aimY + 4);
