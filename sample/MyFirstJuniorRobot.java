@@ -4,57 +4,63 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://robocode.sourceforge.net/license/epl-v10.html
+ * 所謂コピーライト
  */
 package sample;
 
 
 import robocode.JuniorRobot;
 
+//MyFirstRobotを構成する上で使用するメソッドが含まれているクラスをimportする
 
 /**
  * MyFirstJuniorRobot - a sample robot by Flemming N. Larsen
  * <p/>
- * Moves in a seesaw motion, and spins the gun around at each end
- * when it cannot see any enemy robot. When the robot sees and enemy
- * robot, it will immediately turn the gun and fire at it.
+ * シーソーの様な動きをとる。もし敵機を検知出来なければ砲身を振り回す
+ * もし，ロボットが見つかれば周り，そして砲撃を行う
  *
  * @author Flemming N. Larsen (original)
  */
-public class MyFirstJuniorRobot extends JuniorRobot {
+public class MyFirstJuniorRobot extends JuniorRobot { //JuniorRobotを継承
 
 	/**
-	 * MyFirstJuniorRobot's run method - Seesaw as default
+	 * MyFirstJuniorRobot's run メソッド - シーソーの様な動きがデフォルト
 	 */
 	public void run() {
-		// Set robot colors
+		//色の設定
+		//機体:緑 主砲:黒 レーザー:青 
 		setColors(green, black, blue);
 
-		// Seesaw forever
+		//永遠にシーソー 
 		while (true) {
-			ahead(100); // Move ahead 100
-			turnGunRight(360); // Spin gun around
-			back(100); // Move back 100
-			turnGunRight(360); // Spin gun around
+			ahead(100); //100ピクセル前進 
+			turnGunRight(360); // 砲身を右に360度回転
+			back(100); // 100ピクセル後進
+			turnGunRight(360); // 砲身を左に360度回転
 		}
 	}
 
 	/**
-	 * When we see a robot, turn the gun towards it and fire
+	 *もし敵機を見つけた場合，そちらを向いて砲撃 
 	 */
 	public void onScannedRobot() {
-		// Turn gun to point at the scanned robot
+		//scanした敵機の方に砲身を向ける 
 		turnGunTo(scannedAngle);
 
-		// Fire!
+		//威力1で砲撃
 		fire(1);
 	}
 
 	/**
-	 * We were hit!  Turn and move perpendicular to the bullet,
-	 * so our seesaw might avoid a future shot.
+	 *弾があたった場合，弾に垂直に成るように回転 
+	 *そうすればシーソーの動きで弾丸を避けれるかもしれない 
 	 */
 	public void onHitByBullet() {
 		// Move ahead 100 and in the same time turn left papendicular to the bullet
+		
 		turnAheadLeft(100, 90 - hitByBulletBearing);
+		
+		//JuniorRobot内のメソッドturnAheadLeftを用いて100ピクセル前進しながら,
+		//90度からhitByBulletBearingで弾丸から機体の角度を引いた値左回転する
 	}
 }
