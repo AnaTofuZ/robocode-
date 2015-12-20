@@ -4,6 +4,7 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://robocode.sourceforge.net/license/epl-v10.html
+ * 所謂コピーライト
  */
 package sample;
 
@@ -16,32 +17,37 @@ import static robocode.util.Utils.normalRelativeAngleDegrees;
 
 import java.awt.*;
 
+//Fire.javaで使用するためのクラスをimport
 
 /**
  * Fire - a sample robot by Mathew Nelson, and maintained.
  * <p/>
- * Sits still. Spins gun around. Moves when hit.
+ * Fireは銃身を回転させながら，砲撃して移動する.
  *
  * @author Mathew A. Nelson (original)
  * @author Flemming N. Larsen (contributor)
+ * 作者の説明とちょっとした概要
  */
+
+
 public class Fire extends Robot {
-	int dist = 50; // distance to move when we're hit
+	int dist = 50; //被弾した際に動く距離として使用するためにint型変数dirstを宣言し，50を代入 
 
 	/**
-	 * run:  Fire's main run function
+	 * run:  Fireのメインとなるrunメソッド
 	 */
 	public void run() {
-		// Set colors
+		//色の設定 
 		setBodyColor(Color.orange);
 		setGunColor(Color.orange);
 		setRadarColor(Color.red);
 		setScanColor(Color.red);
 		setBulletColor(Color.red);
 
-		// Spin the gun around slowly... forever
+		//ゆっくりと砲身を右回転し続ける 
+		
 		while (true) {
-			turnGunRight(5);
+			turnGunRight(5); //5度右回転
 		}
 	}
 
