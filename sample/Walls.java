@@ -4,6 +4,7 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://robocode.sourceforge.net/license/epl-v10.html
+ * 所謂コピーライト
  */
 package sample;
 
@@ -14,80 +15,81 @@ import robocode.ScannedRobotEvent;
 
 import java.awt.*;
 
+//必要なクラスをimport
 
 /**
  * Walls - a sample robot by Mathew Nelson, and maintained by Flemming N. Larsen
  * <p/>
- * Moves around the outer edge with the gun facing in.
+ *外壁にそって動き，顔面に砲撃
  *
  * @author Mathew A. Nelson (original)
  * @author Flemming N. Larsen (contributor)
  */
-public class Walls extends Robot {
+public class Walls extends Robot { //Robotの継承
 
-	boolean peek; // Don't turn if there's a robot there
-	double moveAmount; // How much to move
+	boolean peek; // もしロボットがいたらそこでターンをしない 
+	double moveAmount; // どれくらい移動するかを決定
 
 	/**
-	 * run: Move around the walls
+	 * runメソッド
 	 */
 	public void run() {
-		// Set colors
+		//色の設定 
 		setBodyColor(Color.black);
 		setGunColor(Color.black);
 		setRadarColor(Color.orange);
 		setBulletColor(Color.cyan);
 		setScanColor(Color.cyan);
 
-		// Initialize moveAmount to the maximum possible for this battlefield.
+		//moveAmountをバトルフィールド上での最大値に変更 
 		moveAmount = Math.max(getBattleFieldWidth(), getBattleFieldHeight());
-		// Initialize peek to false
+		//mathクラスのmaxメソッドを用いて大きい方の値を代入
+
+		//peekをfalseに設定 
 		peek = false;
 
-		// turnLeft to face a wall.
-		// getHeading() % 90 means the remainder of
-		// getHeading() divided by 90.
+		//壁に向かって左折 
+		// getHeading()の値を90で割った余りの角度分左回転
 		turnLeft(getHeading() % 90);
-		ahead(moveAmount);
-		// Turn the gun to turn right 90 degrees.
-		peek = true;
-		turnGunRight(90);
-		turnRight(90);
+		ahead(moveAmount); //moveAmountの分直進
+		// 主砲を90度右回転する
+		peek = true;	//peekをtrueに設定
+		turnGunRight(90); //主砲をまず右に90度回転
+		turnRight(90);	//その後機体を右に90度回転
 
-		while (true) {
-			// Look before we turn when ahead() completes.
+		while (true) {//永遠ループ
+			//この辺りの処理はaheadが完了するまでには終了している 
 			peek = true;
-			// Move up the wall
+			// 壁に向かう
 			ahead(moveAmount);
-			// Don't look now
+		
 			peek = false;
-			// Turn to the next wall
+			// peekをfalseに設定
 			turnRight(90);
+			//機体を右に90度回転
 		}
 	}
 
 	/**
-	 * onHitRobot:  Move away a bit.
+	 * onHitRobot:  衝突したら少し逃げる.
 	 */
 	public void onHitRobot(HitRobotEvent e) {
-		// If he's in front of us, set back up a bit.
-		if (e.getBearing() > -90 && e.getBearing() < 90) {
-			back(100);
-		} // else he's in back of us, so set ahead a bit.
+		//正面にいたら後退をする 
+		if (e.getBearing() > -90 && e.getBearing() < 90) { //敵機が絶対値90度以下なら
+			back(100);//100ピクセル後進
+		} //それ以外は逆に進む 
 		else {
-			ahead(100);
+			ahead(100);//100ピクセル前進
 		}
 	}
 
 	/**
-	 * onScannedRobot:  Fire!
+	 * onScannedRobot:  砲撃!
 	 */
 	public void onScannedRobot(ScannedRobotEvent e) {
-		fire(2);
-		// Note that scan is called automatically when the robot is moving.
-		// By calling it manually here, we make sure we generate another scan event if there's a robot on the next
-		// wall, so that we do not start moving up it until it's gone.
-		if (peek) {
+		fire(2);//威力2で砲撃
+
+		if (peek) { //peekの値がtrueならscanを行う
 			scan();
 		}
 	}
