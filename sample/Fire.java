@@ -52,30 +52,42 @@ public class Fire extends Robot {
 	}
 
 	/**
-	 * onScannedRobot:  Fire!
+	 * onScannedRobot:  敵機を検知したら砲撃
 	 */
 	public void onScannedRobot(ScannedRobotEvent e) {
-		// If the other robot is close by, and we have plenty of life,
-		// fire hard!
-		if (e.getDistance() < 50 && getEnergy() > 50) {
-			fire(3);
-		} // otherwise, fire 1.
+		//敵機が50pixel以下の距離，かつ自機のエネルギーが50以上の場合 
+		// 最高威力で砲撃!
+
+		if (e.getDistance() < 50 && getEnergy() > 50) { 
+				
+			//e.getDistance()でscanした敵機との距離を図り
+			//getEnergyで自機のエネルギーを数値化する
+
+			fire(3);	//最大出力で砲撃
+
+		} // それ以外の場合は威力1で砲撃.
 		else {
 			fire(1);
 		}
-		// Call scan again, before we turn the gun
+		// もう一度scanすることで連続攻撃を実装
 		scan();
 	}
 
 	/**
-	 * onHitByBullet:  Turn perpendicular to the bullet, and move a bit.
+	 * onHitByBullet: 弾丸に対して垂直に移動し，少し動く 
 	 */
-	public void onHitByBullet(HitByBulletEvent e) {
+	public void onHitByBullet(HitByBulletEvent e) { //onHitByBulletのコンストラクタ
 		turnRight(normalRelativeAngleDegrees(90 - (getHeading() - e.getHeading())));
 
-		ahead(dist);
-		dist *= -1;
-		scan();
+	/**
+         * getHeadingメソッドから取得した自機の向きの角度と
+	 * HitByBulletEventのメソッド"getHeading"で命中した時点での弾丸の進行方向をそれぞれ取得。
+	 * 自機の向きから弾丸の向きを引いた物を，さらに90度から引いて，この差をturnRightメソッドに渡す
+	 */
+
+		ahead(dist); // 先に要していたdistの値分前進する
+		dist *= -1;  //distの値に(-1)を乗算する
+		scan();  //もう一度scanを呼び,onScannnedRobotを呼び出しやすくする
 	}
 
 	/**
