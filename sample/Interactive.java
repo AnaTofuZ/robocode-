@@ -4,7 +4,9 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://robocode.sourceforge.net/license/epl-v10.html
+ * 所謂コピーライト
  */
+
 package sample;
 
 
@@ -18,29 +20,30 @@ import static java.awt.event.KeyEvent.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
+//Interactiveを構成する上で必要なクラスをimportする
 
 /**
  * Interactive - a sample robot by Flemming N. Larsen.
  * <p/>
- * This is a robot that is controlled using the arrow keys and mouse only.
+ * このロボットはマウスとKeyboardのみでコントロールを行う
  * <p/>
- * Keys:
- * - W or arrow up:    Move forward
- * - S or arrow down:  Move backward
- * - A or arrow right: Turn right
- * - D or arrow left:  Turn left
- * Mouse:
- * - Moving:      Moves the aim, which the gun will follow
- * - Wheel up:    Move forward
- * - Wheel down:  Move backward
- * - Button 1:    Fire a bullet with power = 1
- * - Button 2:    Fire a bullet with power = 2
- * - Button 3:    Fire a bullet with power = 3
+ * キーボード入力:
+ * - W 又は 上矢印:   前進する
+ * - S 又は 下矢印:   後進する
+ * - A 又は 右矢印:   右回転
+ * - D 又は 左矢印:   左回転
+ * マウス入力:
+ * - 移動:     動きを追って，銃が移動
+ * - 上にホイール:    前進
+ * - 下ホイール:      後進
+ * - ボタン 1:    砲撃をこの大きさで行う = 1
+ * - ボタン 2:    砲撃をこの大きさで行う = 2
+ * - ボタン 3:    砲撃をこの大きさで行う = 3
  * <p/>
- * The bullet color depends on the fire power:
- * - Power = 1:   Yellow
- * - Power = 2:   Orange
- * - Power = 3:   Red
+ * 砲撃の威力に応じて弾丸の色を変更:
+ * - Power = 1:   黄色
+ * - Power = 2:   オレンジ
+ * - Power = 3:   赤
  * <p/>
  * Note that the robot will continue firing as long as the mouse button is
  * pressed down.
@@ -55,60 +58,66 @@ import java.awt.event.MouseWheelEvent;
  *
  * @since 1.3.4
  */
-public class Interactive extends AdvancedRobot {
+public class Interactive extends AdvancedRobot { //AdvancedRobotを継承したInteractiveメソッド
 
-	// Move direction: 1 = move forward, 0 = stand still, -1 = move backward
-	int moveDirection;
+	//移動指示       : 1 = 前進			0 = そのまま			-1 = 後退
+	int moveDirection; //int 型変数moveDirectionを宣言
 
-	// Turn direction: 1 = turn right, 0 = no turning, -1 = turn left
+	//回転指示	:		1= 右回転 		0 = 回転しない	-1 = 左回転
 	int turnDirection;
 
-	// Amount of pixels/units to move
+	//移動時進んだ分の距離(ピクセル)の合計
 	double moveAmount;
 
-	// The coordinate of the aim (x,y)
+	//目標の(x,y)座標と連携
 	int aimX, aimY;
 
-	// Fire power, where 0 = don't fire
+	//火力。			もし0なら砲撃しない
 	int firePower;
 
-	// Called when the robot must run
+	//robotを実行するにはrunメソッドを実行しなければならない
 	public void run() {
 
-		// Sets the colors of the robot
-		// body = black, gun = white, radar = red
+		//ロボットの機体の色をコントロールする
+		//ボディを黒色, 砲身を白色, レーダーを赤色
 		setColors(Color.BLACK, Color.WHITE, Color.RED);
 
-		// Loop forever
+		// 永遠ループ
 		for (;;) {
-			// Sets the robot to move forward, backward or stop moving depending
-			// on the move direction and amount of pixels to move
+			//ロボットを前進，後退，もしくは止まることができるように設定を行う
+			//移動方向とマウス移動時におけるピクセルの合計の乗算で前進を設定する
 			setAhead(moveAmount * moveDirection);
 
-			// Decrement the amount of pixels to move until we reach 0 pixels
-			// This way the robot will automatically stop if the mouse wheel
-			// has stopped it's rotation
+			//残り移動距離が0ピクセルに近づくいくようにデクリメント
+			//もしマウスホイールが止まれば自動でロボットが停止
+			//回転も終了
 			moveAmount = Math.max(0, moveAmount - 1);
+			//mathクラスのmaxメソッドで0かmoveAmount-1の多い方の値をmoveAmountに渡す
 
-			// Sets the robot to turn right or turn left (at maximum speed) or
-			// stop turning depending on the turn direction
+			//右回転，及び左回転(共に最大スピード)もしくは
+			//回転方向の操作で回転を止めるかを決定
 			setTurnRight(45 * turnDirection); // degrees
+			//45にturnDirectionの値を乗算(turnDirectionは±1か0なので45をかけ，45度回転)
+			//setメソッドなので実行動作が行われるまで待機
 
-			// Turns the gun toward the current aim coordinate (x,y) controlled by
-			// the current mouse coordinate
+			//マウスの(x,y)座標と現在の自機の(x,y)座標を持って弾丸の目標点を計算
+
 			double angle = normalAbsoluteAngle(Math.atan2(aimX - getX(), aimY - getY()));
+			//double型変数 angleにmathクラスのatan2を用いて角度θ(シータ)を返す
 
 			setTurnGunRightRadians(normalRelativeAngle(angle - getGunHeadingRadians()));
+			//angleから現在の大砲の向きの絶対角度を引いた値分右回転
+			//これもsetメソッドなので実行動作が行われるまで待機
 
-			// Fire the gun with the specified fire power, unless the fire power = 0
+			//fireパワーが0ではない限り設定された分の砲撃を行う
 			if (firePower > 0) {
 				setFire(firePower);
 			}
 
-			// Execute all pending set-statements
+			//execute()メソッドを用いて今まで待機していた全てのsetメソッドを開始
 			execute();
 
-			// Next turn is processed in this loop..
+			//次のループに突入
 		}
 	}
 
