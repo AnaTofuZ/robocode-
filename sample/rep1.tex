@@ -6,6 +6,8 @@
 \usepackage{framed}
 \usepackage[dvipdfmx]{graphicx}%pdf出力のための
 \usepackage{mediabb}
+\usepackage{color}
+
 
 %\usepackage{listings,jlisting}.cをpdfに出力
 \usepackage{listings, jlisting}
@@ -14,8 +16,8 @@
   basicstyle={\footnotesize\ttfamily},%ソースコードのフォント設定
   identifierstyle={\small},
   ndkeywordstyle={\small},
-  keywordstyle=\ttfamily,
-  stringstyle={\small\ttfamily},
+  keywordstyle={\ttfamily\color[cmyk]{0,1,0,0}},
+  stringstyle={\small\ttfamily\color[rgb]{0,0,1}},
   frame={tb},
   breaklines=true,%行が長くなった際の改行の有無
   xrightmargin=0zw,%右の余白の大きさ
@@ -26,7 +28,7 @@
   numberstyle=\ttfamily,
   frame=tRBl,
   framesep=5pt,
-  commentstyle={\ttfamily},%コメントアウトのフォント設定
+  commentstyle={\ttfamily\color[cmyk]{1,0.4,1,0}},%コメントアウトのフォント設定
   flexiblecolumns = true,
   classoffset=1,
   showstringspaces=false,
@@ -54,7 +56,7 @@
         \vspace*{100truept}
         \bf{ProgrammingII}\\ %タイトル1行目
         \vspace*{10truept}
-        \bf{Report 1}\\ %タイトル2行目
+        \bf{Report  \#1}\\ %タイトル2行目
         \vspace{340truept}
     \end{center}
     \begin{flushright}
@@ -255,8 +257,20 @@
 \item hoge
 \end{enumerate}
 
-\section{あとがき}
-\ \ \ うぇい
+\section{各ロボットの対戦}
+
+\subsection{総当り戦}
+\begin{itemize}
+\item 以下に総当りの票を示す。
+\item 今回の対戦ルールは下記の様に行った
+\end{itemize}
+
+\hrulefill
+
+\begin{enumerate}
+\item 使用バトルフィールドの大きさ
+\end{enumerate}
+
 \end{flushleft}
 %番号付き箇条書き
 %\begin{enumerate}

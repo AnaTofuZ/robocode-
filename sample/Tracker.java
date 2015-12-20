@@ -4,6 +4,7 @@
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
  * http://robocode.sourceforge.net/license/epl-v10.html
+ * 所謂コピーライト
  */
 package sample;
 
@@ -16,52 +17,53 @@ import static robocode.util.Utils.normalRelativeAngleDegrees;
 
 import java.awt.*;
 
+//Trackerを構成する上で必要なクラスをimport
 
 /**
  * Tracker - a sample robot by Mathew Nelson.
  * <p/>
- * Locks onto a robot, moves close, fires when close.
+ * 上に行くロボットを見つけたら，近づいて，充分に近づければ砲撃
  *
  * @author Mathew A. Nelson (original)
  * @author Flemming N. Larsen (contributor)
  */
 public class Tracker extends Robot {
-	int count = 0; // Keeps track of how long we've
-	// been searching for our target
-	double gunTurnAmt; // How much to turn our gun when searching
-	String trackName; // Name of the robot we're currently tracking
+	int count = 0; //自機の周回をcountすつための変数を宣言 
+	
+	double gunTurnAmt; //サーチ時にいくらか主砲を回転させる 
+	String trackName; // 現在追跡している敵機の名前を保存
 
 	/**
-	 * run:  Tracker's main run function
+	 * run:  Tracker's のメインとなるrunメソッド(関数) 
 	 */
 	public void run() {
-		// Set colors
+		// 色の設定
 		setBodyColor(new Color(128, 128, 50));
 		setGunColor(new Color(50, 50, 20));
 		setRadarColor(new Color(200, 200, 70));
 		setScanColor(Color.white);
 		setBulletColor(Color.blue);
 
-		// Prepare gun
-		trackName = null; // Initialize to not tracking anyone
-		setAdjustGunForRobotTurn(true); // Keep the gun still when we turn
-		gunTurnAmt = 10; // Initialize gunTurn to 10
+		// 砲身の準備
+		trackName = null; // 現在はまだ何も追跡していないのでnullを入れる
+		setAdjustGunForRobotTurn(true); //回転中は主砲を停止
+		gunTurnAmt = 10; // 今現在はgunTurnを10に設定
 
-		// Loop forever
+		// 無限ループ
 		while (true) {
-			// turn the Gun (looks for enemy)
-			turnGunRight(gunTurnAmt);
-			// Keep track of how long we've been looking
+			// 敵機を探しながら主砲を回転
+			turnGunRight(gunTurnAmt);//gunTurnAmt分
+			//どれくらい見たかを保存する為にcountをインクリメント 
 			count++;
-			// If we've haven't seen our target for 2 turns, look left
+			//二周しても敵機が見つからなかったら左回転 
 			if (count > 2) {
-				gunTurnAmt = -10;
+				gunTurnAmt = -10;//-10で左回転を意味する
 			}
-			// If we still haven't seen our target for 5 turns, look right
+			//5countでも敵機を発見出来なかった場合，右回転に戻す 
 			if (count > 5) {
 				gunTurnAmt = 10;
 			}
-			// If we *still* haven't seen our target after 10 turns, find another target
+			//もし10countしても敵機を発見出来なかった場合，別の機体を標的にする
 			if (count > 11) {
 				trackName = null;
 			}
@@ -69,76 +71,77 @@ public class Tracker extends Robot {
 	}
 
 	/**
-	 * onScannedRobot:  Here's the good stuff
+	 * onScannedRobot:  敵機を見つけた時に呼び出されるメソッド
 	 */
 	public void onScannedRobot(ScannedRobotEvent e) {
 
-		// If we have a target, and this isn't it, return immediately
-		// so we can get more ScannedRobotEvents.
+		//もし，現在ターゲットが決まっていても他の敵機を見つけたら 
+		// 更にスキャンイベントを入手することができる
 		if (trackName != null && !e.getName().equals(trackName)) {
-			return;
+			//trackNameがnullでなく，getNameがtrackNameの値と違う時
+			return; //終了
 		}
 
-		// If we don't have a target, well, now we do!
-		if (trackName == null) {
-			trackName = e.getName();
-			out.println("Tracking " + trackName);
+		//もしターゲットがなくてもやってしまう 
+		if (trackName == null) { //trackNameがnullだったら
+			trackName = e.getName(); //trackNameに発見した敵機の名前を挿れて
+			out.println("Tracking " + trackName); //敵機の名前を出力
 		}
-		// This is our target.  Reset count (see the run method)
+		//ターゲットならメインメソッドを参照し，countを0にする 
 		count = 0;
-		// If our target is too far away, turn and move toward it.
-		if (e.getDistance() > 150) {
+		//もしターゲットが遠距離なら，ターゲットに対してターンして移動 
+		if (e.getDistance() > 150) { //ターゲットとの距離が150ピクセル以上なら
 			gunTurnAmt = normalRelativeAngleDegrees(e.getBearing() + (getHeading() - getRadarHeading()));
+		//gunTurnAmtに(ターゲットとの相対角度)+(現在の角度-レーダーの角度)の角度を渡す
 
-			turnGunRight(gunTurnAmt); // Try changing these to setTurnGunRight,
-			turnRight(e.getBearing()); // and see how much Tracker improves...
-			// (you'll have to make Tracker an AdvancedRobot)
-			ahead(e.getDistance() - 140);
+			turnGunRight(gunTurnAmt); //gunTurnAmtの分だけ砲身右回転 
+			turnRight(e.getBearing()); //turnRightに敵機との相対角度を渡す
+			ahead(e.getDistance() - 140); //敵機との距離から140ピクセル引いた分前進
 			return;
 		}
 
-		// Our target is close.
+		//もし敵機と近づいていた場合 
 		gunTurnAmt = normalRelativeAngleDegrees(e.getBearing() + (getHeading() - getRadarHeading()));
 		turnGunRight(gunTurnAmt);
-		fire(3);
+		fire(3);//威力3で砲撃を追加
 
-		// Our target is too close!  Back up.
-		if (e.getDistance() < 100) {
-			if (e.getBearing() > -90 && e.getBearing() <= 90) {
-				back(40);
+		//とても近づいていた場合，バック 
+		if (e.getDistance() < 100) { //距離が100以下なら
+			if (e.getBearing() > -90 && e.getBearing() <= 90) {//さらに絶対値90以下なら
+				back(40);//40ピクセルバック
 			} else {
-				ahead(40);
+				ahead(40);//それ以外なら40ピクセル前進
 			}
 		}
-		scan();
+		scan();//scan
 	}
 
 	/**
-	 * onHitRobot:  Set him as our new target
+	 * onHitRobot:被弾時には当ててきた方を新しいターゲットにする
 	 */
 	public void onHitRobot(HitRobotEvent e) {
-		// Only print if he's not already our target.
+		//このメソッドが呼び出された際にまだターゲットが決まっていない場合 
 		if (trackName != null && !trackName.equals(e.getName())) {
 			out.println("Tracking " + e.getName() + " due to collision");
+		//コメントを出力
+
 		}
-		// Set the target
+		// ターゲットをセット
 		trackName = e.getName();
-		// Back up a bit.
-		// Note:  We won't get scan events while we're doing this!
-		// An AdvancedRobot might use setBack(); execute();
+
 		gunTurnAmt = normalRelativeAngleDegrees(e.getBearing() + (getHeading() - getRadarHeading()));
 		turnGunRight(gunTurnAmt);
 		fire(3);
-		back(50);
+		back(50); //さきほどまでの処理に50ピクセルバックを加える
 	}
 
 	/**
-	 * onWin:  Do a victory dance
+	 * onWin:  勝利の舞
 	 */
 	public void onWin(WinEvent e) {
-		for (int i = 0; i < 50; i++) {
-			turnRight(30);
-			turnLeft(30);
+		for (int i = 0; i < 50; i++) { //iが50になるまで
+			turnRight(30);//右30度回転
+			turnLeft(30);//左30度回転
 		}
 	}
 }

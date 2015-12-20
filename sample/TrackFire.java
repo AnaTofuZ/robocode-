@@ -51,10 +51,12 @@ public class TrackFire extends Robot {
 	public void onScannedRobot(ScannedRobotEvent e) {
 		//ロボットの位置を計算 
 		double absoluteBearing = getHeading() + e.getBearing();
-		//double型変数absoluteBearingを宣言かつ，現在の自機の角度と敵機との相対角度を足した値に設定
+		//double型変数absoluteBearingを宣言かつ
+		//現在の自機の角度と敵機との相対角度を足した値に設定
 	
 		double bearingFromGun = normalRelativeAngleDegrees(absoluteBearing - getGunHeading());
-		//double型変数bearingFromGunを宣言かつ，敵機の絶対角度から自機の主砲絶対角度を引いたものに設定		
+		//double型変数bearingFromGunを宣言かつ
+		//敵機の絶対角度から自機の主砲絶対角度を引いたものに設定		
 
 		//充分に近ければ砲撃 
 		if (Math.abs(bearingFromGun) <= 3) {  //もしbearingFromGunの絶対値が3以下なら
