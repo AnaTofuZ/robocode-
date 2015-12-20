@@ -118,52 +118,53 @@ public class Interactive_v2 extends AdvancedRobot {
 		}
 	}
 
-	// Called when a key has been pressed
+	// キーボード入力がされた時に呼び出されるメソッド 
 	public void onKeyPressed(KeyEvent e) {
-		switch (e.getKeyCode()) {
+		switch (e.getKeyCode()) { //押されたキーによって分岐
 		case VK_UP:
-		case VK_W:
-			directions.add(Direction.UP);
+		case VK_W:   //上矢印キー，Wキーの場合
+			directions.add(Direction.UP); //Directionで定義したUPをdirectionsに追加
 			break;
 
 		case VK_DOWN:
-		case VK_S:
-			directions.add(Direction.DOWN);
+		case VK_S:  //下矢印キー，Sキーの場合
+			directions.add(Direction.DOWN); //Directionで定義したDOWNをdirectionsに追加
 			break;
 
 		case VK_RIGHT:
-		case VK_D:
-			directions.add(Direction.RIGHT);
+		case VK_D:  //右矢印キー，Dキーの場合
+			directions.add(Direction.RIGHT); //DirectionのRIGHTをdirectionsに追加
 			break;
 
 		case VK_LEFT:
-		case VK_A:
-			directions.add(Direction.LEFT);
+		case VK_A://左キー，Aキーの場合
+			directions.add(Direction.LEFT); //DirectionのLEFTをdirectionsに追加
 			break;
 		}
 	}
 
-	// Called when a key has been released (after being pressed)
+	// キーボードから指を離した際に呼び出されるメソッド
+	 
 	public void onKeyReleased(KeyEvent e) {
-		switch (e.getKeyCode()) {
+		switch (e.getKeyCode()) { //押されていたキーで分岐
 		case VK_UP:
 		case VK_W:
-			directions.remove(Direction.UP);
+			directions.remove(Direction.UP);//上キー，Wキーの場合directionsからUPの要素をリムーブする
 			break;
 
 		case VK_DOWN:
 		case VK_S:
-			directions.remove(Direction.DOWN);
+			directions.remove(Direction.DOWN); //下キー，Sキーの場合，directionsからDOWNの要素をリムーブする
 			break;
 
 		case VK_RIGHT:
 		case VK_D:
-			directions.remove(Direction.RIGHT);
+			directions.remove(Direction.RIGHT);//右キー，Dキーの場合，directionsからRIGHTの要素をリムーブする
 			break;
 
 		case VK_LEFT:
 		case VK_A:
-			directions.remove(Direction.LEFT);
+			directions.remove(Direction.LEFT);//左キー，Aキーの場合，directionsからLEFTの要素をリムーブする
 			break;
 		}
 	}
