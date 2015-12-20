@@ -169,47 +169,48 @@ public class Interactive_v2 extends AdvancedRobot {
 		}
 	}
 
-	// Called when the mouse wheel is rotated
-	public void onMouseWheelMoved(MouseWheelEvent e) {// Do nothing
+	//マウスのホイールが動いた時に呼び出されるメソッド 
+	public void onMouseWheelMoved(MouseWheelEvent e) {//特に意味は無い
 	}
 
-	// Called when the mouse has been moved
+	//マウスが動いた際に呼び出されるメソッド 
 	public void onMouseMoved(MouseEvent e) {
-		// Set the aim coordinate = the mouse pointer coordinate
+		//エイムの値を現在マウスが指している値にする 
 		aimX = e.getX();
 		aimY = e.getY();
 	}
 
-	// Called when a mouse button has been pressed
+	//マウスのボタンが押された際に呼び出されるメソッド 
 	public void onMousePressed(MouseEvent e) {
 		if (e.getButton() == MouseEvent.BUTTON3) {
-			// Button 3: fire power = 3 energy points, bullet color = red
+			//3ボタン : 威力3の砲撃 色は赤色 
 			firePower = 3;
 			setBulletColor(Color.RED);
 		} else if (e.getButton() == MouseEvent.BUTTON2) {
-			// Button 2: fire power = 2 energy points, bullet color = orange
+			 //2ボタン : 威力2の砲撃 色はオレンジ 
 			firePower = 2;
 			setBulletColor(Color.ORANGE);
 		} else {
-			// Button 1 or unknown button:
-			// fire power = 1 energy points, bullet color = yellow
+			// 1ボタンかそれ以外のボタンが押された時
+			//威力1の砲撃 色は黄色 
 			firePower = 1;
 			setBulletColor(Color.YELLOW);
 		}
 	}
 
-	// Called when a mouse button has been released (after being pressed)
+	//マウスのボタンから指が離された時に呼び出されるメソッド 
 	public void onMouseReleased(MouseEvent e) {
-		// Fire power = 0, which means "don't fire"
+		// Fire power = 0は撃たないことを意味する。
 		firePower = 0;
 	}
 
-	// Called in order to paint graphics for this robot.
-	// "Paint" button on the robot console window for this robot must be
-	// enabled in order to see the paintings.
+	//robotコンソールからこの機体はペイントボタンを押す事ができる。
+	//押すとペイント機能(エイム表示)をすることが可能 
+
 	public void onPaint(Graphics2D g) {
-		// Draw a red cross hair with the center at the current aim
-		// coordinate (x,y)
+
+		//エイム範囲を赤色のサークルとして表示
+	
 		g.setColor(Color.RED);
 		g.drawOval(aimX - 15, aimY - 15, 30, 30);
 		g.drawLine(aimX, aimY - 4, aimX, aimY + 4);
