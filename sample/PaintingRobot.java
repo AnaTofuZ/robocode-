@@ -16,54 +16,66 @@ import java.awt.*;
 
 
 /**
- * PaintingRobot - a sample robot that demonstrates the onPaint() and
- * getGraphics() methods.
+ * Painting RobotはonPaint()メソッドと,getGraphics()メソッドのデモンストレーション
  * Also demonstrate feature of debugging properties on RobotDialog
  * <p/>
- * Moves in a seesaw motion, and spins the gun around at each end.
- * When painting is enabled for this robot, a red circle will be painted
- * around this robot.
+ * 基本的にはシーソーのような動きを行い，各メソッドの最後に回転する 
+ *paintingを使用した際，自機の周囲に円を作る 
  *
  * @author Stefan Westen (original SGSample)
  * @author Pavel Savara (contributor)
+ * 所謂コピーライト
  */
-public class PaintingRobot extends Robot {
+
+public class PaintingRobot extends Robot { //Robotclassから継承
 
 	/**
-	 * PaintingRobot's run method - Seesaw
+	 * PaintingRobot's run method - シーソー動作
 	 */
 	public void run() {
-		while (true) {
-			ahead(100);
-			turnGunRight(360);
-			back(100);
-			turnGunRight(360);
+		while (true) {//永遠ループ
+			ahead(100); //100ピクセル前進
+			turnGunRight(360); //360度砲身を右回転
+			back(100); //100ピクセル後退
+			turnGunRight(360); //360度砲身を右回転
 		}
 	}
 
 	/**
-	 * Fire when we see a robot
+	 *敵機を発見した際，砲撃 
 	 */
 	public void onScannedRobot(ScannedRobotEvent e) {
-		// demonstrate feature of debugging properties on RobotDialog
+		//ロボットダイアログのデバッグプロパティの機能のデモンストレーション 
 		setDebugProperty("lastScannedRobot", e.getName() + " at " + e.getBearing() + " degrees at time " + getTime());
-		
-		fire(1);
+		/**
+		  *setDebugPropertyはStringを2つ受け取る	
+		  *2つめのstringにはe.getNameメソッドでscanしたロボット名
+		  *getBearingで相対速度，getTimeでゲーム時間をそれぞれ文字列として渡す
+		  */
+		fire(1);//威力1で砲撃
 	}
 
 	/**
-	 * We were hit!  Turn perpendicular to the bullet,
-	 * so our seesaw might avoid a future shot.
-	 * In addition, draw orange circles where we were hit.
+	 * 被弾時には，弾丸に垂直になるように動く
+	 * 上手く行けば永遠に弾丸からシーソーの動きで避けることができるかもしれない 
+	 *追加で，被弾したらオレンジの円を出力する 
 	 */
 	public void onHitByBullet(HitByBulletEvent e) {
-		// demonstrate feature of debugging properties on RobotDialog
+		//ロボットダイアログ上のデバッグプロパティの特徴となる機能を示す 
 		setDebugProperty("lastHitBy", e.getName() + " with power of bullet " + e.getPower() + " at time " + getTime());
 
-		// show how to remove debugging property
+ 		  /**
+                    *setDebugPropertyはStringを2つ受け取る        
+                    *2つめのstringにはe.getNameメソッドでscanしたロボット名
+                    *getPowerで被弾した弾丸のパワーを，getTimeでゲーム時間をそれぞれ文字列として渡す
+                    */
+
+
 		setDebugProperty("lastScannedRobot", null);
 
-		// gebugging by painting to battle view
+		//デバッグプロパティを削除
+
+		//先頭表示(バトル・ビュー)をペイントすることでデバックを行う
 		Graphics2D g = getGraphics();
 
 		g.setColor(Color.orange);
@@ -72,12 +84,13 @@ public class PaintingRobot extends Robot {
 		g.drawOval((int) (getX() - 59), (int) (getY() - 59), 118, 118);
 		g.drawOval((int) (getX() - 60), (int) (getY() - 60), 120, 120);
 
+		//90度から敵機との相対角度を引いた分左回転
 		turnLeft(90 - e.getBearing());
 	}
 
 	/**
-	 * Paint a red circle around our PaintingRobot
-	 */
+	  * paintingrobotの周辺に赤い円を作る
+	  */
 	public void onPaint(Graphics2D g) {
 		g.setColor(Color.red);
 		g.drawOval((int) (getX() - 50), (int) (getY() - 50), 100, 100);
