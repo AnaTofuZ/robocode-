@@ -217,57 +217,56 @@ public class Interactive_v2 extends AdvancedRobot {
 		g.drawLine(aimX - 4, aimY, aimX + 4, aimY);
 	}
 
-	// Returns the angle to turn, which is the delta between the desired
-	// direction and the current heading of the robot
+	// アングルを戻した時発生する微小区間を決定し，その方向にロボットを剥ける。
 	private double angleToTurnInDegrees() {
 		if (directions.isEmpty()) {
-			return 0;
+			return 0;	//directionが空だった場合0を返す
 		}
 		return Utils.normalRelativeAngleDegrees(desiredDirection() - getHeading());
+			//disiredDirection()メソッドを呼び出し，そこから帰ってきた値とrobotの現在向いている角度を引いた者を返す
 	}
 
-	// Returns the distance to move
+	// 移動距離を返すメソッド
 	private double distanceToMove() {
-		// If no keys are pressed, we should not move at all
+		//既にdirectionsの値が空になってしまっていた場合，0を返す 
 		if (directions.isEmpty()) {
 			return 0;
 		}
-		// If the robot has more than 45 degrees to turn, move only 5 pixel
+		//もしangleToTurnInDegreesが45より大きければ5ピクセルのみ動かす 
 		if (Math.abs(angleToTurnInDegrees()) > 45) {
 			return 5;
 		}
-		// Otherwise, move at full speed
+		//それ以外ならフルスピードで移動する 
 		return Double.POSITIVE_INFINITY;
 	}
 
-	// Return the desired direction depending on the pending move directions.
-	// With one arrow key pressed, the move to N, E, S, W.
-	// With two keys pressed, the robot also move to NE, NW, SE, SW.
+	//2つ以上の移動キーが入力された場合，斜め移動を行う
+ 
 	private double desiredDirection() {
-		if (directions.contains(Direction.UP)) {
-			if (directions.contains(Direction.RIGHT)) {
-				return 45;
+		if (directions.contains(Direction.UP)) {	//もしUPが収納されていて
+			if (directions.contains(Direction.RIGHT)) {//右移動が支持されたら
+				return 45;	//45を返す
 			}
-			if (directions.contains(Direction.LEFT)) {
-				return 315;
+			if (directions.contains(Direction.LEFT)) {	//左移動が指示されたら
+				return 315;	//315が返される
 			}
-			return 0;
+			return 0;//ただUPだけなら0を返す
 		}
-		if (directions.contains(Direction.DOWN)) {
-			if (directions.contains(Direction.RIGHT)) {
-				return 135;
+		if (directions.contains(Direction.DOWN)) {	//もしDOWNが収納されていて
+			if (directions.contains(Direction.RIGHT)) {	//右移動が指示されたら	
+				return 135;	//135を返す	
 			}
-			if (directions.contains(Direction.LEFT)) {
-				return 225;
+			if (directions.contains(Direction.LEFT)) {	//左移動ならば
+				return 225;	//225を返す
 			}
-			return 180;
+			return 180; 	//それ以外は180を返す	
 		}
 		if (directions.contains(Direction.RIGHT)) {
-			return 90;
+			return 90;	//右移動のみだったら90度を返す
 		}
-		if (directions.contains(Direction.LEFT)) {
+		if (directions.contains(Direction.LEFT)) {	//左移動のみなら270を返す
 			return 270;
 		}
-		return 0;
+		return 0;	//それ以外なら0を返す
 	}
 }
