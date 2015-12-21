@@ -75,7 +75,6 @@
 \end{titlepage}
 
 \tableofcontents %目次を自動作成するコマンド
-\setcounter{page}{1} %ページ数を1とする
 \pagestyle{plain}
 %事前にjlisting.styをlistingにぶちこみ，sudo mktexlsr で更新を行う。
 
@@ -83,193 +82,172 @@
 
 \begin{flushleft}
 
-\section{ソースコードの解説}
+\section{サンプルプログラムの解説}
 \subsection{Corners.java}
 \lstinputlisting{Corners.java}
 
 \newpage
 
 \subsection{Crazy.java}
-\subsubsection{ソースコード}
 \lstinputlisting{Crazy.java}
 
 \newpage
 
 \subsection{Fire.java}
-\subsubsection{ソースコード}
 \lstinputlisting{Fire.java}
 
 \newpage
 
 \subsection{Interactive.java}
-\subsubsection{ソースコード}
 \lstinputlisting{Interactive.java}
-\subsubsection{考察}
-\subsubsection{メリット}
-\begin{enumerate}
-\item hoge
-\end{enumerate}
-\subsubsection{デメリット}
-\begin{enumerate}
-\item hoge
-\end{enumerate}
+
+\newpage
 
 \subsection{Interactive\_v2.java}
-\subsubsection{ソースコード}
 \lstinputlisting{Interactive_v2.java}
-\subsubsection{考察}
-\subsubsection{メリット}
-\begin{enumerate}
-\item hoge
-\end{enumerate}
-\subsubsection{デメリット}
-\begin{enumerate}
-\item hoge
-\end{enumerate}
+\newpage
 
 \subsection{MyFirstJuniorRobot.java}
-\subsubsection{ソースコード}
 \lstinputlisting{MyFirstJuniorRobot.java}
-\subsubsection{考察}
-\subsubsection{メリット}
-\begin{enumerate}
-\item hoge
-\end{enumerate}
-\subsubsection{デメリット}
-\begin{enumerate}
-\item hoge
-\end{enumerate}
+\newpage
+
+\subsection{MyFirstRobot.java}
+\lstinputlisting{MyFirstRobot.java}
+\newpage
 
 \subsection{PaintingRobot.java}
-\subsubsection{ソースコード}
 \lstinputlisting{PaintingRobot.java}
-\subsubsection{考察}
-\subsubsection{メリット}
-\begin{enumerate}
-\item hoge
-\end{enumerate}
-\subsubsection{デメリット}
-\begin{enumerate}
-\item hoge
-\end{enumerate}
+\newpage
 
 \subsection{RamFire.java}
-\subsubsection{ソースコード}
 \lstinputlisting{RamFire.java}
-\subsubsection{考察}
-\subsubsection{メリット}
-\begin{enumerate}
-\item hoge
-\end{enumerate}
-\subsubsection{デメリット}
-\begin{enumerate}
-\item hoge
-\end{enumerate}
+\newpage
 
 \subsection{SittingDuck.java}
-\subsubsection{ソースコード}
 \lstinputlisting{SittingDuck.java}
-\subsubsection{考察}
-\subsubsection{メリット}
-\begin{enumerate}
-\item hoge
-\end{enumerate}
-\subsubsection{デメリット}
-\begin{enumerate}
-\item hoge
-\end{enumerate}
+\newpage
+
 
 \subsection{SpinBot.java}
-\subsubsection{ソースコード}
 \lstinputlisting{SpinBot.java}
-\subsubsection{考察}
-\subsubsection{メリット}
-\begin{enumerate}
-\item hoge
-\end{enumerate}
-\subsubsection{デメリット}
-\begin{enumerate}
-\item hoge
-\end{enumerate}
+\newpage
 
 \subsection{Target.java}
-\subsubsection{ソースコード}
 \lstinputlisting{Target.java}
-\subsubsection{考察}
-\subsubsection{メリット}
-\begin{enumerate}
-\item hoge
-\end{enumerate}
-\subsubsection{デメリット}
-\begin{enumerate}
-\item hoge
-\end{enumerate}
+\newpage
 
 \subsection{TrackFire.java}
-\subsubsection{ソースコード}
 \lstinputlisting{TrackFire.java}
-\subsubsection{考察}
-\subsubsection{メリット}
-\begin{enumerate}
-\item hoge
-\end{enumerate}
-\subsubsection{デメリット}
-\begin{enumerate}
-\item hoge
-\end{enumerate}
+\newpage
 
 \subsection{Tracker.java}
-\subsubsection{ソースコード}
 \lstinputlisting{Tracker.java}
-\subsubsection{考察}
-\subsubsection{メリット}
-\begin{enumerate}
-\item hoge
-\end{enumerate}
-\subsubsection{デメリット}
-\begin{enumerate}
-\item hoge
-\end{enumerate}
+\newpage
 
 \subsection{VelociRobot.java}
-\subsubsection{ソースコード}
 \lstinputlisting{VelociRobot.java}
-\subsubsection{考察}
-\subsubsection{メリット}
-\begin{enumerate}
-\item hoge
-\end{enumerate}
-\subsubsection{デメリット}
-\begin{enumerate}
-\item hoge
-\end{enumerate}
+\newpage
 
 \subsection{Walls.java}
-\subsubsection{ソースコード}
 \lstinputlisting{Walls.java}
-\subsubsection{考察}
-\subsubsection{メリット}
-\begin{enumerate}
-\item hoge
-\end{enumerate}
-\subsubsection{デメリット}
-\begin{enumerate}
-\item hoge
-\end{enumerate}
+\newpage
+
 
 \section{各ロボットの対戦}
 
-\subsection{総当り戦}
-\begin{itemize}
-\item 以下に総当りの票を示す。
-\item 今回の対戦ルールは下記の様に行った
-\end{itemize}
+\subsection{乱戦}
 
-\hrulefill
+\item 講義の決戦が乱闘のようなので乱闘ルールで計測した
+\item 今回の対戦ルールは下記の様に行った
 
 \begin{enumerate}
-\item 使用バトルフィールドの大きさ
+\item 使用バトルフィールドの大きさは800×600
+\item ラウンド数は10rounds
+\item Sectry Border Sizeはデフォルト値100で計測した
+\item Interactive系統2機は使用者の特性が如実に現れるので今回は不参加の処置を取った。
 \end{enumerate}
+
+\subsubsection{結果}
+\begin{enumerate}
+\item Walls
+\item SpinBot
+\item Tracker
+\item TrackFire
+\item Fire
+\item RamFire
+\item Crazy
+\item VelociRobot
+\item MyFirstRobot
+\item PaintingRobot
+\item MyFirstJuniorRobot
+\item Corners
+\item Target
+\item SittingDuck
+\end{enumerate}
+\hrulefill
+
+\subsection{考察}
+\subsection{全体考察}
+\ \ \  やはりWallsが乱戦によっても最強の結果となった。次いでSpinBotなので，これらを対策を睨みつつ，Wallsベースで自作robotを作成すればまずまずの結果は得られるとは思う。
+Wallsの弱点となるような，サーチにかからない，及び，壁から離れた場所・背後からの狙撃に対応できるrobot開発が求められると思う。
+ Crazyが比較的中頃の順位に落ち着いているので，変な動きをして流れ弾を喰らうよりも，一定の安定するパターン処理をした方がいいと考えた。
+ 
+ \subsection{個別考察}
+ 
+  \subsubsection{Corners}
+ \ \ \ 角から角へ移動するが，全体的に乱戦で角が開いている状況があまりなく，タイマンなら効果を発揮するが，あまりメリットがないと見れる
+
+ \subsubsection{Crazy}
+ \ \ \ 無造作過ぎて壁にぶつかるため自滅することが多い。しかし，流れ弾を回避することが可能であるため，多少は生き延びることが多い。
+ 
+ 
+ \subsubsection{Fire}
+ \ \ \ タイムロスが多く，集中攻撃されるとすぐに終わる。乱戦時は敵が多いので，中盤までは強いが数がまばらになると弱体化する
+ 
+ \subsubsection{Interactive}
+ \ \ \ タイマンで自分で操作した所，慣れてないのであまり出来ない
+ 
+ \subsubsection{Interactive\_v2}
+ \ \ \ 同上。　こういうゲームに慣れてる人なら出来るのかもしれない。多少は使いやすい
+ 
+ \subsubsection{MyFirstJuniorRobot}
+ \ \ \ 反復運動を行うのでタイマンでは強いと思うが数が多い乱戦の序盤で，そこが仇となって撃沈される事が多い。ただし終盤まで生き残ればwallsすら倒せるレベルで強い。
+ 
+ \subsubsection{MYFirstRobot}
+ \ \ \ 動きが限りなくSimple故，後半まで生き延びる事がたまにある。ただし攻撃手段や移動手段にレパートリーが無いので詰められない
+ 
+ \subsubsection{PaintingRobot}
+ \ \ \ MyFirstJuniorRobotの下位互換の印象。手数が少なくなってしまった。
+ 
+ \subsubsection{RamFire}
+ \ \ \ タックルが専門なので戦闘では撃沈しやすいが，ボーナスポイントを稼ぎやすい。ゲームシステム的な面で強い
+ 
+ \subsubsection{SittingDuck}
+ \ \ \ 何もしない(sampleロボットなので)。まず勝てない
+ 
+ \subsubsection{SpinBot}
+ \ \ \ 常に回転しているため弾丸を避けることが上手く終始強い。しかしタイマンになると弾丸の命中率が良くなく，最後はwallsに倒される
+ 
+ \subsubsection{Target}
+ \ \ \ 移動するメソッドのsampleなのでまず勝てない
+ 
+ \subsubsection{TrackFire}
+ \ \ \ 動くことが無いので乱闘には不向きかとは思ったが，以外に生き残った。敵が多い分狙いがずれても流れ弾が当たる事が多く，弾を食らってもその分当てて回復する。しかし後半になるにつれてエネルギーの消費が激しく撃沈される。
+ 
+ \subsubsection{Tracker}
+ \ \ \ 敵機に接近してから集中攻撃をしかける為短期決戦の様に強い。後半まで基本的に生き残るrobotの1機。ただし，引いて近づく動作があるのでspinrobotとwallが対当する後半の局面では弱い
+ 
+ \subsubsection{VelociRobot}
+ \ \ \ 撃沈される時は相当早く撃沈する。動きがややゆっくりなのとMyFirstJuniorRobotなどに機体とくっつかれると格好の的に成ることが多い。タイマンなら強いとは思うが，序盤でかなり撃沈されるのが傷。
+ 
+ \subsubsection{Walls}
+ \ \ \ 最強クラスの1機であるが，cornersやTrackFireの流れ弾，的にされるケースも多く，最終決戦まで生存していない時がまれにあった。もう少し回避機能を強化できれば最強となる可能性が大。
+
+\newpage
+
+\section{あとがき}
+\item タイマン戦闘のデータも取れば良かったかもしれないが，乱戦の状況を見て状況判断をして動きを変更するrobotの方が汎用性が高いと感じた。javaのオーバーライドや継承など，様々な要素がソースコードに含まれていたので読むのに結構苦労した。次回のReportもしっかりと取り組みたい。それと今回からTeXを利用してReportを作成した。こちらももっと勉強したい。
+
 
 \end{flushleft}
 %番号付き箇条書き
@@ -277,8 +255,9 @@
 %\item 1つめ
 
 
+
 \begin{thebibliography}{9} 
-	\bibitem{}Java言語プログラミングレッスン
-	\bibitem{}javaの教科書
+	\bibitem{}本格学習Java入門 [改訂新版]
+		\bibitem{}Java言語プログラミングレッスン
 \end{thebibliography}
 \end{document}
